@@ -7,8 +7,6 @@ __pycache__/
 *.py[co]
 *$py.class
 
-# ALEAPP
-ALEAPP_Reports_*
 
 # C extensions
 *.so

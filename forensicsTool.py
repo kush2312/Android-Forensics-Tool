@@ -72,7 +72,7 @@ def pickModules():
         mlist.append( CheckList(val[0] + f' [{key}]', indx, key, disabled) )
         indx = indx + 1
         
-sg.theme('LightGreen5')   # Add a touch of color
+sg.theme('LightYellow')   # Add a touch of color
 # All the stuff inside your window.
 
 normal_font = ("Helvetica", 12)

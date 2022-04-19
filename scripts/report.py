@@ -6,7 +6,7 @@ import shutil
 from collections import OrderedDict
 from scripts.html_parts import *
 from scripts.funcs import logfunc
-from scripts.version_info import version, aleapp_contributors
+from scripts.version_info import version
 
 def get_icon_name(category, artifact):
     ''' Returns the icon name from the feathericons collection. To add an icon type for 
@@ -314,46 +314,21 @@ def create_index_html(reportfolderbase, time_in_secs, time_HMS, extraction_type,
     
     content += '</div>' # CARD end
 
-    authors_data = generate_authors_table_code(aleapp_contributors)
-    credits_code = credits_block.format(authors_data)
-
     # WRITE INDEX.HTML LAST
     filename = 'index.html'
-    page_title = 'ALEAPP Report'
-    body_heading = 'Android Logs Events And Protobuf Parser'
-    body_description = 'ALEAPP is an open source project that aims to parse every known Android artifact for the purpose of forensic analysis.'
+    page_title = 'Forensics Report'
+    body_heading = 'Android Forensics Tool'
+    body_description = 'This is a tool for the purpose of forensic analysis of android device.'
     active_nav_list_data = mark_item_active(nav_list_data, filename) + nav_bar_script
 
     f = open(os.path.join(reportfolderbase, filename), 'w', encoding='utf8')
     f.write(page_header.format(page_title))
-    f.write(body_start.format(f"ALEAPP {version}"))
+    f.write(body_start.format(f"Forensics Tool {version}"))
     f.write(body_sidebar_setup + active_nav_list_data + body_sidebar_trailer)
     f.write(body_main_header + body_main_data_title.format(body_heading, body_description))
     f.write(content)
-    f.write(thank_you_note)
-    f.write(credits_code)
     f.write(body_main_trailer + body_end + nav_bar_script_footer + page_footer)
     f.close()
-
-def generate_authors_table_code(aleapp_contributors):
-    authors_data = ''
-    for author_name, blog, tweet_handle, git in aleapp_contributors:
-        author_data = ''
-        if blog:
-            author_data += f'<a href="{blog}" target="_blank">{blog_icon}</a> &nbsp;\n'
-        else:
-            author_data += f'{blank_icon} &nbsp;\n'
-        if tweet_handle:
-            author_data += f'<a href="https://twitter.com/{tweet_handle}" target="_blank">{twitter_icon}</a> &nbsp;\n'
-        else:
-            author_data += f'{blank_icon} &nbsp;\n'
-        if git:
-            author_data += f'<a href="{git}" target="_blank">{github_icon}</a>\n'
-        else:
-            author_data += f'{blank_icon}'
-
-        authors_data += individual_contributor.format(author_name, author_data)
-    return authors_data
 
 def generate_key_val_table_without_headings(title, data_list, html_escape=True, width="70%"):
     '''Returns the html code for a key-value table (2 cols) without col names'''

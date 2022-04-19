@@ -1,8 +1,6 @@
-import argparse
 import io
 import os
 import scripts.report as report
-import shutil
 import traceback
 
 from scripts.search_files import *

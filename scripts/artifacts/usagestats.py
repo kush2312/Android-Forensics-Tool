@@ -219,10 +219,6 @@ def AddEntriesToDb(sourced, file_name_int, stats, db):
     db.commit()
 
 def get_usagestats(files_found, report_folder, seeker, wrap_text):
-
-    logfunc ('Android Usagestats XML & Protobuf Parser')
-    logfunc ('By: @AlexisBrignoni & @SwiftForensics')
-    logfunc ('Web: abrignoni.com & swiftforensics.com')
     
     slash = '\\' if is_platform_windows() else '/' 
 

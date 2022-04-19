@@ -197,62 +197,7 @@ tabs_code = \
         <div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="profile-tab"><br />{}</div>
     </div>
 """
-# thank you note , at bottom of index.html
-thank_you_note = \
-"""
-                <br /><br /><br />
-                <div class="text-center">
-                    <br />
-                    <div class="card bg-white mb-3" style="max-width: 500px; margin:auto">
-                        <div class="row no-gutters">
-                            <div class="col-md-4">
-                                <img src="_elements/logo.jpg" class="card-img" alt="DFIR">
-                            </div>
-                            <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Thank you for using ALEAPP</h5>
-                                <p class="card-text">
-                                    Support open source and report any bugs!
-                                </p>
-                                <!--Github-->
-                                <a class="btn-floating btn-git" type="button" role="button" href="https://github.com/abrignoni/aleapp" target="_blank"><i class="fab fa-github"></i> Project Home </a>
-                                <p class="card-text fadeIn"><small class="text-muted">ALEAPP Team</small></p>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br />
-                    <br />
-                </div><!--end text-center area-->
-"""
 
-# Variable: HTML List of individual contributors (for index.html)
-credits_block = \
-"""
-    <div class="alert alert-light mb-4 bg-white" style="border-style: none">
-        <h4 class="text-center">ALEAPP contributors</h4>
-        <ul class="list-group" style="max-width: 500px; margin:auto">
-            {}
-        </ul>
-    </div>
-"""
-blog_icon = '<i class="fab fa-blogger-b fa-fw"></i>'
-twitter_icon = '<i class="fab fa-twitter fa-fw"></i>'
-github_icon = '<i class="fab fa-github fa-fw"></i>'
-blank_icon = '<i class="fab fa-fw"></i>'
-individual_contributor = \
-"""
-            <li class="list-group-item d-flex justify-content-between align-items-center bg-white"><i class="fas fa-medal"></i>{}
-                <span>
-                    {}
-                </span>
-            </li>
-"""
-""" sample contibutor data..
-                    <a href="{}" target="_blank"><i class="fab fa-blogger-b fa-fw"></i></a> &nbsp;
-                    <a href="{}" target="_blank"><i class="fab fa-twitter fa-fw"></i></a> &nbsp;
-                    <a href="{}" target="_blank"><i class="fab fa-github fa-fw"></i></a>
-"""
 body_main_trailer = \
 """
             </main>
