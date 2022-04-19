@@ -2,7 +2,6 @@ import bcrypt
 import xml.etree.ElementTree as ET
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.artifacts.mewe import APP_NAME
 from scripts.funcs import logfunc, tsv, timeline, open_sqlite_db_readonly, does_table_exist
 
 APP_NAME = 'Snapchat'
