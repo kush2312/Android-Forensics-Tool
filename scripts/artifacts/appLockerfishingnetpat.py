@@ -3,7 +3,7 @@ from Crypto.Cipher import AES
 from Crypto.Util.Padding import unpad
 import xml.etree.ElementTree as ET
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, is_platform_windows
+from scripts.funcs import logfunc, tsv, timeline, is_platform_windows
 
 def get_appLockerfishingnetpat(files_found, report_folder, seeker, wrap_text):
     

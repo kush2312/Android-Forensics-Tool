@@ -2,7 +2,7 @@ import os
 import time
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, is_platform_windows, media_to_html, timeline
+from scripts.funcs import logfunc, tsv, is_platform_windows, media_to_html, timeline
 
 def triage_text(file_found):
     output = ''

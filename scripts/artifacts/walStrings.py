@@ -4,7 +4,7 @@ import string
 
 from pathlib import Path
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, is_platform_windows
+from scripts.funcs import logfunc, is_platform_windows
 
 control_chars = ''.join(map(chr, range(0,32))) + ''.join(map(chr, range(127,160)))
 not_control_char_re = re.compile(f'[^{control_chars}]' + '{4,}')

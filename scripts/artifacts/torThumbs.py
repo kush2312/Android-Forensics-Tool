@@ -4,7 +4,7 @@ from pathlib import Path
 from PIL import Image
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import timeline, tsv, is_platform_windows, open_sqlite_db_readonly, is_platform_windows, media_to_html
+from scripts.funcs import timeline, tsv, is_platform_windows, open_sqlite_db_readonly, is_platform_windows, media_to_html
 
 
 def get_torThumbs(files_found, report_folder, seeker, wrap_text):

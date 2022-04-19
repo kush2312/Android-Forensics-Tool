@@ -5,7 +5,7 @@ from os.path import getsize
 
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly, media_to_html
+from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly, media_to_html
 
 def convertGeo(s):
     length = len(s)

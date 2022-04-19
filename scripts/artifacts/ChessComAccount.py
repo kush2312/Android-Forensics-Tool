@@ -4,7 +4,7 @@ import xml.etree.ElementTree as ET
 import datetime
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, is_platform_windows, open_sqlite_db_readonly
+from scripts.funcs import logfunc, tsv, is_platform_windows, open_sqlite_db_readonly
 
 def get_ChessComAccount(files_found, report_folder, seeker, wrap_text):
     

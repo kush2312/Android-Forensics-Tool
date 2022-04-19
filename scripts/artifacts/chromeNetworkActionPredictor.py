@@ -1,7 +1,7 @@
 import os
 import sqlite3
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, is_platform_windows, get_next_unused_name, open_sqlite_db_readonly
+from scripts.funcs import logfunc, tsv, is_platform_windows, get_next_unused_name, open_sqlite_db_readonly
 
 def get_browser_name(file_name):
 

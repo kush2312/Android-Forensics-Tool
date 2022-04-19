@@ -4,7 +4,7 @@ import base64
 import binascii
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, is_platform_windows 
+from scripts.funcs import logfunc, tsv, is_platform_windows 
 from scripts.parse3 import ParseProto
 
 def get_vaulty_info(files_found, report_folder, seeker, wrap_text):

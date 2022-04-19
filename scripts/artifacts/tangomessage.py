@@ -3,7 +3,7 @@ import base64
 import datetime
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly
+from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly
 
 def _decodeMessage(wrapper, message):
     result = ""

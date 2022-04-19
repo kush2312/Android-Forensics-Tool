@@ -3,7 +3,7 @@ import json
 import sqlite3
 import time
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly
+from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly
 
 is_windows = is_platform_windows()
 slash = '\\' if is_windows else '/' 

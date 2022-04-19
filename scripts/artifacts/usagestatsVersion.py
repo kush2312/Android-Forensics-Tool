@@ -2,7 +2,7 @@ import csv
 import scripts.artifacts.artGlobals 
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, logdevinfo, is_platform_windows
+from scripts.funcs import logfunc, tsv, logdevinfo, is_platform_windows
 
 def get_usagestatsVersion(files_found, report_folder, seeker, wrap_text):
     data_list = []

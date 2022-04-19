@@ -6,78 +6,10 @@ import shutil
 import traceback
 
 from scripts.search_files import *
-from scripts.ilapfuncs import *
-from scripts.ilap_artifacts import *
-from scripts.version_info import aleapp_version
+from scripts.funcs import *
+from scripts.tool_artifacts import *
+from scripts.version_info import version
 from time import process_time, gmtime, strftime
-
-def main():
-    parser = argparse.ArgumentParser(description='ALEAPP: Android Logs, Events, and Protobuf Parser.')
-    parser.add_argument('-t', choices=['fs','tar','zip', 'gz'], required=False, type=str.lower, action="store", help="Input type (fs = extracted to file system folder)")
-    parser.add_argument('-o', '--output_path', required=False, action="store", help='Output folder path')
-    parser.add_argument('-i', '--input_path', required=False, action="store", help='Path to input file/folder')
-    parser.add_argument('-p', '--artifact_paths', required=False, action="store_true", help='Text file list of artifact paths')
-    parser.add_argument('-w', '--wrap_text', required=False, action="store_false", help='do not wrap text for output of data files')
-        
-    args = parser.parse_args()
-    
-    if args.artifact_paths == True:
-        print('Artifact path list generation started.')
-        print('')
-        for key, value in tosearch.items():
-            if type(value[1]) is tuple:
-                for x in value[1]:
-                    print(x)
-            else:
-                print(value[1])
-        print('')
-        print('Artifact path list generation completed')    
-        return
-
-    else:
-        input_path = args.input_path
-        extracttype = args.t
-
-        if args.wrap_text == None:
-            wrap_text = True
-        else:
-            wrap_text = args.wrap_text 
-    
-        if args.output_path == None:
-            parser.error('No OUTPUT folder path provided')
-            return
-        else:
-            output_path = os.path.abspath(args.output_path)
-        
-        if output_path == None:
-            parser.error('No OUTPUT folder selected. Run the program again.')
-            return
-            
-        if input_path == None:
-            parser.error('No INPUT file or folder selected. Run the program again.')
-            return
-        
-        if args.t == None:
-            parser.error('No INPUT file or folder selected. Run the program again.')
-            return
-
-        if not os.path.exists(input_path):
-            parser.error('INPUT file/folder does not exist! Run the program again.')
-            return
-        
-        if not os.path.exists(output_path):
-            parser.error('OUTPUT folder does not exist! Run the program again.')
-            return  
-
-        # File system extractions can contain paths > 260 char, which causes problems
-        # This fixes the problem by prefixing \\?\ on each windows path.
-        if is_platform_windows():
-            if input_path[1] == ':' and extracttype =='fs': input_path = '\\\\?\\' + input_path.replace('/', '\\')
-            if output_path[1] == ':': output_path = '\\\\?\\' + output_path.replace('/', '\\')
-
-        out_params = OutputParameters(output_path)
-
-        crunch_artifacts(tosearch, extracttype, input_path, out_params, 1, wrap_text)
 
 def crunch_artifacts(search_list, extracttype, input_path, out_params, ratio, wrap_text):
     start = process_time()
@@ -85,10 +17,7 @@ def crunch_artifacts(search_list, extracttype, input_path, out_params, ratio, wr
     logfunc('Procesing started. Please wait. This may take a few minutes...')
 
     logfunc('\n--------------------------------------------------------------------------------------')
-    logfunc(f'ALEAPP v{aleapp_version}: Android Logs, Events, and Protobuf Parser')
-    logfunc('Objective: Triage Android Full System Extractions.')
-    logfunc('By: Alexis Brignoni | @AlexisBrignoni | abrignoni.com')
-    logfunc('By: Yogesh Khatri   | @SwiftForensics | swiftforensics.com')
+    logfunc(f'Forensics Tool v{version}')
     logdevinfo()
 
     seeker = None
@@ -171,6 +100,3 @@ def crunch_artifacts(search_list, extracttype, input_path, out_params, ratio, wr
     logfunc('')
     logfunc(f'Report location: {out_params.report_folder_base}')
     return True
-
-if __name__ == '__main__':
-    main()

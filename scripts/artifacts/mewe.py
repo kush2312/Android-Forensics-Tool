@@ -1,7 +1,7 @@
 import xml.etree.ElementTree as ET
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, open_sqlite_db_readonly
+from scripts.funcs import logfunc, tsv, timeline, open_sqlite_db_readonly
 
 APP_NAME = 'MeWe'
 DB_NAME = 'app_database'

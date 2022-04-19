@@ -8,7 +8,7 @@ import xml.etree.ElementTree as ET
 
 from enum import IntEnum
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, is_platform_windows
+from scripts.funcs import logfunc, tsv, timeline, is_platform_windows
 
 # Event types referenced from core\java\android\app\usage\UsageEvents.java
 

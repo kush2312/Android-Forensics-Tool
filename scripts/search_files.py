@@ -4,7 +4,7 @@ import tarfile
 import time
 
 from pathlib import Path
-from scripts.ilapfuncs import *
+from scripts.funcs import *
 from zipfile import ZipFile
 
 class FileSeekerBase:

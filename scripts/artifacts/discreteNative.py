@@ -2,7 +2,7 @@ import os
 import datetime
 import xml.etree.ElementTree as ET
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, is_platform_windows, abxread, checkabx, logdevinfo
+from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, abxread, checkabx, logdevinfo
 
 def oplist(opvalue):
     thisdict = {

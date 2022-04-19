@@ -4,7 +4,7 @@ import sqlite3
 
 from html import escape
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly, does_table_exist, does_column_exist_in_db
+from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly, does_table_exist, does_column_exist_in_db
 
 # Reference for flag values for mms:
 # ---------------------------------- 

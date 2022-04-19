@@ -5,7 +5,7 @@ import re
 import xml.etree.ElementTree as ET
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, logdevinfo, is_platform_windows, abxread, checkabx
+from scripts.funcs import logfunc, tsv, logdevinfo, is_platform_windows, abxread, checkabx
 
 def get_settingsSecure(files_found, report_folder, seeker, wrap_text):
 

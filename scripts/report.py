@@ -5,8 +5,8 @@ import shutil
 
 from collections import OrderedDict
 from scripts.html_parts import *
-from scripts.ilapfuncs import logfunc
-from scripts.version_info import aleapp_version, aleapp_contributors
+from scripts.funcs import logfunc
+from scripts.version_info import version, aleapp_contributors
 
 def get_icon_name(category, artifact):
     ''' Returns the icon name from the feathericons collection. To add an icon type for 
@@ -326,7 +326,7 @@ def create_index_html(reportfolderbase, time_in_secs, time_HMS, extraction_type,
 
     f = open(os.path.join(reportfolderbase, filename), 'w', encoding='utf8')
     f.write(page_header.format(page_title))
-    f.write(body_start.format(f"ALEAPP {aleapp_version}"))
+    f.write(body_start.format(f"ALEAPP {version}"))
     f.write(body_sidebar_setup + active_nav_list_data + body_sidebar_trailer)
     f.write(body_main_header + body_main_data_title.format(body_heading, body_description))
     f.write(content)

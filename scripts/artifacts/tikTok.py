@@ -2,7 +2,7 @@ from os.path import dirname, join
 import sqlite3
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, timeline, open_sqlite_db_readonly
+from scripts.funcs import logfunc, tsv, timeline, open_sqlite_db_readonly
 
 
 def get_tikTok(files_found, report_folder, seeker, wrap_text):

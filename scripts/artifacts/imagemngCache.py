@@ -2,7 +2,7 @@ import datetime
 from os.path import isfile, join, basename, dirname, getsize, abspath, getmtime
 
 from scripts.artifact_report import ArtifactHtmlReport
-from scripts.ilapfuncs import logfunc, tsv, is_platform_windows, media_to_html, timeline
+from scripts.funcs import logfunc, tsv, is_platform_windows, media_to_html, timeline
 
 def get_imagemngCache(files_found, report_folder, seeker, wrap_text):
     data_list = []

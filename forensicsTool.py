@@ -1,13 +1,13 @@
-import aleapp
+import process
 import os
 import PySimpleGUI as sg
 import sys
 import webbrowser
 
-from scripts.ilapfuncs import *
-from scripts.version_info import aleapp_version
+from scripts.funcs import *
+from scripts.version_info import version
 from time import process_time, gmtime, strftime
-from scripts.ilap_artifacts import *
+from scripts.tool_artifacts import *
 from scripts.search_files import *
 
 def ValidateInput(values, window):
@@ -79,11 +79,10 @@ normal_font = ("Helvetica", 12)
 mlist = []
 # go through list of available modules and confirm they exist on the disk
 pickModules()
-GuiWindow.progress_bar_total = len(aleapp.tosearch)
+GuiWindow.progress_bar_total = len(process.tosearch)
 
 
-layout = [  [sg.Text('Android Logs, Events, And Protobuf Parser', font=("Helvetica", 22))],
-            [sg.Text('https://github.com/abrignoni/ALEAPP', font=("Helvetica", 14))],
+layout = [  [sg.Text('Android Forensics Tool', font=("Helvetica", 22))],
             [sg.Frame(layout=[
                     [sg.Input(size=(97,1)), 
                      sg.FileBrowse(font=normal_font, button_text='Browse File', key='INPUTFILEBROWSE'),
@@ -102,7 +101,7 @@ layout = [  [sg.Text('Android Logs, Events, And Protobuf Parser', font=("Helveti
             [sg.Submit('Process',font=normal_font), sg.Button('Close', font=normal_font)] ]
             
 # Create the Window
-window = sg.Window(f'ALEAPP version {aleapp_version}', layout)
+window = sg.Window(f'Forensics Tool version {version}', layout)
 GuiWindow.progress_bar_handle = window['PROGRESSBAR']
 
 
@@ -153,7 +152,7 @@ while True:
             GuiWindow.window_handle = window
             out_params = OutputParameters(output_folder)
             wrap_text = True
-            crunch_successful = aleapp.crunch_artifacts(search_list, extracttype, input_path, out_params, len(aleapp.tosearch)/s_items, wrap_text)
+            crunch_successful = process.crunch_artifacts(search_list, extracttype, input_path, out_params, len(process.tosearch)/s_items, wrap_text)
             if crunch_successful:
                 report_path = os.path.join(out_params.report_folder_base, 'index.html')
                     

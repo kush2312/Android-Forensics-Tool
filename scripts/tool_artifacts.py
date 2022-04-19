@@ -160,7 +160,7 @@ from scripts.artifacts.WordsWithFriends import get_WordsWithFriends
 from scripts.artifacts.Xender import get_Xender
 from scripts.artifacts.Zapya import get_Zapya
 
-from scripts.ilapfuncs import *
+from scripts.funcs import *
 
 # GREP searches for each module
 # Format is Key='modulename', Value=Tuple('Module Pretty Name', 'regex_term')
