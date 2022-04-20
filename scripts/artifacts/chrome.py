@@ -76,75 +76,8 @@ def get_chrome(files_found, report_folder, seeker, wrap_text):
             timeline(report_folder, tlactivity, data_list, data_headers)
         else:
             logfunc(f'No {browser_name} - Web History data available')
-        
-        #Web Visits
-        cursor.execute('''
-        SELECT
-        datetime(visits.visit_time/1000000 + (strftime('%s','1601-01-01')),'unixepoch'),
-        urls.url,
-        urls.title,
-        CASE visits.visit_duration
-            WHEN 0 THEN ''
-            ELSE strftime('%H:%M:%f', visits.visit_duration / 1000000.000,'unixepoch')
-        END as Duration,
-        CASE visits.transition & 0xff
-            WHEN 0 THEN 'LINK'
-            WHEN 1 THEN 'TYPED'
-            WHEN 2 THEN 'AUTO_BOOKMARK'
-            WHEN 3 THEN 'AUTO_SUBFRAME'
-            WHEN 4 THEN 'MANUAL_SUBFRAME'
-            WHEN 5 THEN 'GENERATED'
-            WHEN 6 THEN 'START_PAGE'
-            WHEN 7 THEN 'FORM_SUBMIT'
-            WHEN 8 THEN 'RELOAD'
-            WHEN 9 THEN 'KEYWORD'
-            WHEN 10 THEN 'KEYWORD_GENERATED'
-            ELSE NULL
-        END AS CoreTransitionType,
-        trim((CASE WHEN visits.transition & 0x00800000 THEN 'BLOCKED, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x01000000 THEN 'FORWARD_BACK, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x02000000 THEN 'FROM_ADDRESS_BAR, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x04000000 THEN 'HOME_PAGE, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x08000000 THEN 'FROM_API, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x10000000 THEN 'CHAIN_START, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x20000000 THEN 'CHAIN_END, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x40000000 THEN 'CLIENT_REDIRECT, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0x80000000 THEN 'SERVER_REDIRECT, ' ELSE '' END ||
-        CASE WHEN visits.transition & 0xC0000000 THEN 'IS_REDIRECT_MASK, ' ELSE '' END),', ')
-        AS Qualifiers,
-        Query2.url AS FromURL
-        FROM visits
-        LEFT JOIN urls ON visits.url = urls.id
-        LEFT JOIN (SELECT urls.url,urls.title,visits.visit_time,visits.id FROM visits LEFT JOIN urls ON visits.url = urls.id) Query2 ON visits.from_visit = Query2.id  
-        ''')
-
-        all_rows = cursor.fetchall()
-        usageentries = len(all_rows)
-        if usageentries > 0:
-            report = ArtifactHtmlReport(f'{browser_name} - Web Visits')
-            #check for existing and get next name for report file, so report from another file does not get overwritten
-            report_path = os.path.join(report_folder, f'{browser_name} - Web Visits.temphtml')
-            report_path = get_next_unused_name(report_path)[:-9] # remove .temphtml
-            report.start_artifact_report(report_folder, os.path.basename(report_path))
-            report.add_script()
-            data_headers = ('Visit Timestamp','URL','Title','Duration','Transition Type','Qualifier(s)','From Visit URL')
-            data_list = []
-            for row in all_rows:
-                if wrap_text:
-                    data_list.append((row[0],textwrap.fill(row[1], width=100),row[2],row[3],row[4],row[5],row[6]))
-                else:
-                    data_list.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
-            report.write_artifact_data_table(data_headers, data_list, file_found)
-            report.end_artifact_report()
-            
-            tsvname = f'{browser_name} - Web Visits'
-            tsv(report_folder, data_headers, data_list, tsvname)
-            
-            tlactivity = f'{browser_name} - Web Visits'
-            timeline(report_folder, tlactivity, data_list, data_headers)
-        else:
-            logfunc(f'No {browser_name} - Web Visits data available')
-            
+       
+     
         #Web Search    
         cursor.execute('''
         SELECT

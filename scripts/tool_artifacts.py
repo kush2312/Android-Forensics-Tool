@@ -1,8 +1,3 @@
-# To add a new artifact module, import it here as shown below:
-#     from scripts.artifacts.fruitninja import get_fruitninja
-# Also add the grep search for that module using the same name
-# to the 'tosearch' data structure.
-
 import traceback
 
 from scripts.artifacts.accounts_ce import get_accounts_ce
@@ -68,7 +63,6 @@ from scripts.artifacts.smyfilesRecents import get_smyfilesRecents
 from scripts.artifacts.smyFiles import get_smyFiles
 from scripts.artifacts.smyfilesStored import get_smyfilesStored
 from scripts.artifacts.snapchat import get_snapchat
-from scripts.artifacts.settingsSecure import get_settingsSecure
 from scripts.artifacts.teams import get_teams
 from scripts.artifacts.usageapps import get_usageapps
 from scripts.artifacts.usagestats import get_usagestats
@@ -86,13 +80,6 @@ from scripts.artifacts.wifiHotspot import get_wifiHotspot
 from scripts.artifacts.wifiProfiles import get_wifiProfiles
 
 from scripts.funcs import *
-
-# GREP searches for each module
-# Format is Key='modulename', Value=Tuple('Module Pretty Name', 'regex_term')
-#   regex_term can be a string or a list/tuple of strings
-# Here modulename must match the get_xxxxxx function name for that module. 
-# For example: If modulename='profit', function name must be get_profit(..)
-# Don't forget to import the module above!!!!
 
 tosearch = {
     'build':('Device Info', '*/vendor/build.prop'),
@@ -148,7 +135,6 @@ tosearch = {
     'playgroundVault':('Encrypting Media Apps',('*/playground.develop.applocker/shared_prefs/crypto.KEY_256.xml','*/applocker/vault/*')),
     'roles':('App Roles',('*/system/users/*/roles.xml','*/misc_de/*/apexdata/com.android.permission/roles.xml')),
     'runtimePerms':('Permissions',('*/system/users/*/runtime-permissions.xml','*/misc_de/*/apexdata/com.android.permission/runtime-permissions.xml')),
-    'settingsSecure':('Device Info', '*/system/users/*/settings_secure.xml'),
     'shareit':('File Transfer', '*/com.lenovo.anyshare.gps/databases/history.db*'),
     'shutdown_checkpoints':('Power Events', '**/data/system/shutdown-checkpoints/*'),
     'siminfo':('Device Info', '*/user_de/*/com.android.providers.telephony/databases/telephony.db'),
