@@ -254,7 +254,7 @@ def get_Whatsapp(files_found, report_folder, seeker, wrap_text):
                     report.add_script()
                     data_headers = ('Version', 'Name', 'User Status', 'Country Code', 'Mobile Number')
                     data_list = []
-                    data_list.append((data[0], data[3], data[2], data[1], data[4]))
+                    data_list.append((data[1], data[4], data[2], data[3], data[0]))
                     report.write_artifact_data_table(data_headers, data_list, file_found, html_escape=False)
                     report.end_artifact_report()
 

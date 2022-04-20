@@ -11,7 +11,7 @@ import textwrap
 from scripts.artifact_report import ArtifactHtmlReport
 from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly
 
-def get_googleMessages(files_found, report_folder, seeker, wrap_text):
+def get_messages(files_found, report_folder, seeker, wrap_text):
     
     for file_found in files_found:
         file_found = str(file_found)
@@ -43,8 +43,8 @@ def get_googleMessages(files_found, report_folder, seeker, wrap_text):
         all_rows = cursor.fetchall()
         usageentries = len(all_rows)
         if usageentries > 0:
-            report = ArtifactHtmlReport('Google Messages')
-            report.start_artifact_report(report_folder, 'Google Messages')
+            report = ArtifactHtmlReport('Messages')
+            report.start_artifact_report(report_folder, 'Messages')
             report.add_script()
             data_headers = ('Message Timestamp (UTC)','Message Type','Other Participant/Conversation Name','Message Sender','Message','Attachment Byte Size','Attachment Location') 
             data_list = []
@@ -54,12 +54,12 @@ def get_googleMessages(files_found, report_folder, seeker, wrap_text):
             report.write_artifact_data_table(data_headers, data_list, file_found)
             report.end_artifact_report()
             
-            tsvname = f'Google Messages'
+            tsvname = f'Messages'
             tsv(report_folder, data_headers, data_list, tsvname)
             
-            tlactivity = f'Google Messages'
+            tlactivity = f'Messages'
             timeline(report_folder, tlactivity, data_list, data_headers)
         else:
-            logfunc('No Google Messages data available')
+            logfunc('No Messages data available')
         
         db.close()

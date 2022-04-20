@@ -58,36 +58,14 @@ def get_permissions(files_found, report_folder, seeker, wrap_text):
                                     
                                     data_list_packages_su.append((elem.tag, elem.attrib.get('name', ''), sub_subelem.attrib.get('name', ''), sub_subelem.attrib.get('granted', '')))
     
-                if len(data_list_permission_trees) > 0:
-                    report = ArtifactHtmlReport('Permission Trees')
-                    report.start_artifact_report(report_folder, f'Permission Trees')
-                    report.add_script()
-                    data_headers = ('Name', 'Package')
-                    report.write_artifact_data_table(data_headers, data_list_permission_trees, file_found)
-                    report.end_artifact_report()
-                    
-                    tsvname = f'Permission Trees'
-                    tsv(report_folder, data_headers, data_list_permission_trees, tsvname)
-                    
-                if len(data_list_permissions) > 0:
-                    report = ArtifactHtmlReport('Permissions')
-                    report.start_artifact_report(report_folder, f'Permissions')
-                    report.add_script()
-                    data_headers = ('Name', 'Package', 'Protection')
-                    report.write_artifact_data_table(data_headers, data_list_permissions, file_found)
-                    report.end_artifact_report()
-                    
-                    tsvname = f'Permissions'
-                    tsv(report_folder, data_headers, data_list_permissions, tsvname)
-                
                 if len(data_list_packages_su) > 0:
-                    report = ArtifactHtmlReport('Package and Shared User')
-                    report.start_artifact_report(report_folder, f'Package and Shared User')
+                    report = ArtifactHtmlReport('Package and Permissions')
+                    report.start_artifact_report(report_folder, f'Package and Permissions')
                     report.add_script()
                     data_headers = ('Type', 'Package', 'Permission', 'Granted?')
                     report.write_artifact_data_table(data_headers, data_list_packages_su, file_found)
                     report.end_artifact_report()
                     
-                    tsvname = f'Permissions - Packages and Shared User'
+                    tsvname = f'Package and Permissions'
                     tsv(report_folder, data_headers, data_list_packages_su, tsvname)
             

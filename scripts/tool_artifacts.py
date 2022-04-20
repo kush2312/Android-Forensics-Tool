@@ -32,7 +32,7 @@ from scripts.artifacts.googleChat import get_googleChat
 from scripts.artifacts.googleDuo import get_googleDuo
 from scripts.artifacts.googleFitGMS import get_googleFitGMS
 from scripts.artifacts.googleKeepNotes import get_googleKeepNotes
-from scripts.artifacts.googleMessages import get_googleMessages
+from scripts.artifacts.messages import get_messages
 from scripts.artifacts.googlePhotos import get_googlePhotos
 from scripts.artifacts.googlemaplocation import get_googlemaplocation
 from scripts.artifacts.googlemapaudio import get_googlemapaudio
@@ -41,11 +41,9 @@ from scripts.artifacts.googlePlaySearches import get_googlePlaySearches
 from scripts.artifacts.googleQuickSearchbox import get_quicksearch
 from scripts.artifacts.googleQuickSearchboxRecent import get_quicksearch_recent
 from scripts.artifacts.googleTasks import get_googleTasks
-from scripts.artifacts.installedappsGass import get_installedappsGass
 from scripts.artifacts.last_boot_time import get_last_boot_time
 from scripts.artifacts.pSettings import get_pSettings
 from scripts.artifacts.packageGplinks import get_packageGplinks
-from scripts.artifacts.packageInfo import get_package_info
 from scripts.artifacts.permissions import get_permissions
 from scripts.artifacts.playgroundVault import get_playgroundVault
 from scripts.artifacts.powerOffReset import get_powerOffReset
@@ -53,19 +51,16 @@ from scripts.artifacts.recentactivity import get_recentactivity
 from scripts.artifacts.lgRCS import get_lgRCS
 from scripts.artifacts.Oruxmaps import get_Oruxmaps
 from scripts.artifacts.roles import get_roles
-from scripts.artifacts.runtimePerms import get_runtimePerms
 from scripts.artifacts.shareit import get_shareit
 from scripts.artifacts.shutdown_checkpoints import get_shutdown_checkpoints
 from scripts.artifacts.siminfo import get_siminfo
 from scripts.artifacts.skype import get_skype
-from scripts.artifacts.smsmms import get_sms_mms
 from scripts.artifacts.smyfilesRecents import get_smyfilesRecents
 from scripts.artifacts.smyFiles import get_smyFiles
 from scripts.artifacts.smyfilesStored import get_smyfilesStored
 from scripts.artifacts.snapchat import get_snapchat
 from scripts.artifacts.teams import get_teams
 from scripts.artifacts.usageapps import get_usageapps
-from scripts.artifacts.usagestats import get_usagestats
 from scripts.artifacts.usagestatsVersion import get_usagestatsVersion
 from scripts.artifacts.userDict import get_userDict
 from scripts.artifacts.vlcMedia import get_vlcMedia
@@ -115,15 +110,13 @@ tosearch = {
     'googleKeepNotes':('Google Keep', "**/data/com.google.android.keep/databases/keep.db"),
     'googlemaplocation': ('GEO Location', ('**/com.google.android.apps.maps/databases/da_destination_history*')),
     'googlemapaudio': ('Google Maps Voice Guidance', '**/data/data/com.google.android.apps.maps/app_tts-cache/*_*'),
-    'googleMessages': ('Google Messages', ('**/com.google.android.apps.messaging/databases/bugle_db*')),
+    'messages': ('Messages', ('**/com.google.android.apps.messaging/databases/bugle_db*')),
     'googleNowPlaying':('Now Playing', ('*/data/data/com.google.intelligence.sense/db/history_db*','*/data/data/com.google.android.as/databases/history_db*')),
     'googlePhotos':('Google Photos', ('*/data/data/com.google.android.apps.photos/databases/gphotos0.db*','*/data/data/com.google.android.apps.photos/databases/disk_cache*','*/data/data/com.google.android.apps.photos/cache/glide_cache/*','*/data/data/com.google.android.apps.photos/databases/local_trash.db*','*/data/data/com.google.android.apps.photos/files/trash_files/*')),
     'googlePlaySearches':('Google Play', '*/data/data/com.android.vending/databases/suggestions.db*'),
     'googleTasks':('Google Tasks', '*/com.google.android.apps.tasks/files/tasks-*/data.db'),
-    'installedappsGass':('Installed Apps', ('*/data/data/com.google.android.gms/databases/gass.db*', '*/data/user/*/com.google.android.gms/databases/gass.db*' )),
     'last_boot_time': ('Power Events', '**/data/misc/bootstat/last_boot_time_utc'),
     'pSettings':('Device Info', '*/data/data/com.google.android.gsf/databases/googlesettings.db*'),
-    'package_info': ('Installed Apps', '*/system/packages.xml'),
     'packageGplinks': ('Installed Apps', '*/system/packages.list'),
     'powerOffReset': ('Power Events', ('*/data/log/power_off_reset_reason.txt','*/data/log/power_off_reset_reason_backup.txt')),
     'quicksearch':('Google Now & QuickSearch', '*/com.google.android.googlequicksearchbox/app_session/*.binarypb'),
@@ -134,19 +127,16 @@ tosearch = {
     'permissions':('Permissions', '*/system/packages.xml'),
     'playgroundVault':('Encrypting Media Apps',('*/playground.develop.applocker/shared_prefs/crypto.KEY_256.xml','*/applocker/vault/*')),
     'roles':('App Roles',('*/system/users/*/roles.xml','*/misc_de/*/apexdata/com.android.permission/roles.xml')),
-    'runtimePerms':('Permissions',('*/system/users/*/runtime-permissions.xml','*/misc_de/*/apexdata/com.android.permission/runtime-permissions.xml')),
     'shareit':('File Transfer', '*/com.lenovo.anyshare.gps/databases/history.db*'),
     'shutdown_checkpoints':('Power Events', '**/data/system/shutdown-checkpoints/*'),
     'siminfo':('Device Info', '*/user_de/*/com.android.providers.telephony/databases/telephony.db'),
     'skype': ('Skype', '**/com.skype.raider/databases/live*'),
-    'sms_mms':('SMS & MMS', '*/com.android.providers.telephony/databases/mmssms*'), # Get mmssms.db, mms-wal.db
     'smyfilesRecents':('Media Metadata', '*/com.sec.android.app.myfiles/databases/myfiles.db'),
     'smyFiles':('Media Metadata', '**/com.sec.android.app.myfiles/databases/MyFiles*.db*'),
     'smyfilesStored':('Media Metadata', '**/com.sec.android.app.myfiles/databases/FileCache.db'),
     'snapchat': ('Snapchat', ('**/data/com.snapchat.android/databases/*.db', '**/data/com.snapchat.android/shared_prefs/*.xml')),
     'teams':('Teams', '*/com.microsoft.teams/databases/SkypeTeams.db*'),
     'usageapps': ('App Interaction', '**/com.google.android.as/databases/reflection_gel_events.db*'),
-    'usagestats':('Usage Stats', ('*/system/usagestats/*', '**/system_ce/*/usagestats*')), # fs: matches only 1st level folders under usagestats/, tar/zip matches every single file recursively under usagestats/
     'usagestatsVersion':('Usage Stats', ('*/system/usagestats/*/version', '*/system_ce/*/usagestats/version')),
     'userDict':('User Dictionary', '**/com.android.providers.userdictionary/databases/user_dict.db*'),
     'vlcMedia': ('VLC', '*vlc_media.db*'),

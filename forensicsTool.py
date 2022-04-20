@@ -66,7 +66,7 @@ def pickModules():
         mlist.append( CheckList(val[0] + f' [{key}]', indx, key, disabled) )
         indx = indx + 1
         
-sg.theme('LightGreen5')   # Add a touch of color
+sg.theme('LightGray1')   # Add a touch of color
 # All the stuff inside your window.
 
 normal_font = ("Helvetica", 12)
@@ -78,11 +78,11 @@ GuiWindow.progress_bar_total = len(process.tosearch)
 
 layout = [  [sg.Text('Android Forensics Tool', font=("Helvetica", 22))],
             [sg.Frame(layout=[
-                    [sg.Input(size=(112,1)), sg.FolderBrowse(font=normal_font, button_text='Browse Folder')]
+                    [sg.Input(size=(80,2), font=(normal_font, 12)), sg.FolderBrowse(font=(normal_font, 12), button_text='Browse Folder')]
                 ],
                     title='Select Input Dump Folder:')],
             [sg.Frame(layout=[
-                    [sg.Input(size=(112,1)), sg.FolderBrowse(font=normal_font, button_text='Browse Folder')]
+                    [sg.Input(size=(80,1), font=(normal_font, 12)), sg.FolderBrowse(font=(normal_font, 12), button_text='Browse Folder')]
                 ], 
                     title='Select Output Folder:')],
             [sg.Text('Available Modules')],
