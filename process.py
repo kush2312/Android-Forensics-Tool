@@ -18,27 +18,7 @@ def crunch_artifacts(search_list, extracttype, input_path, out_params, ratio, wr
     logfunc(f'Forensics Tool v{version}')
     logdevinfo()
 
-    seeker = None
-    try:
-        if extracttype == 'fs':
-            seeker = FileSeekerDir(input_path)
-
-        elif extracttype in ('tar', 'gz'):
-            seeker = FileSeekerTar(input_path, out_params.temp_folder)
-
-        elif extracttype == 'zip':
-            seeker = FileSeekerZip(input_path, out_params.temp_folder)
-
-        else:
-            logfunc('Error on argument -o (input type)')
-            return False
-    except Exception as ex:
-        logfunc('Had an exception in Seeker - see details below. Terminating Program!')
-        temp_file = io.StringIO()
-        traceback.print_exc(file=temp_file)
-        logfunc(temp_file.getvalue())
-        temp_file.close()
-        return False
+    seeker = FileSeekerDir(input_path)
 
     # Now ready to run
     logfunc(f'Artifact categories to parse: {str(len(search_list))}')

@@ -14,24 +14,18 @@ def ValidateInput(values, window):
     '''Returns tuple (success, extraction_type)'''
     global indx
 
-    i_path = values[0] # input file/folder
+    i_path = values[0] # input folder
     o_path = values[1] # output folder
     ext_type = ''
 
     if len(i_path) == 0:
-        sg.PopupError('No INPUT file or folder selected!')
+        sg.PopupError('No INPUT folder selected!')
         return False, ext_type
     elif not os.path.exists(i_path):
-        sg.PopupError('INPUT file/folder does not exist!')
+        sg.PopupError('INPUT folder does not exist!')
         return False, ext_type
-    elif os.path.isdir(i_path):
+    else:
         ext_type = 'fs'
-    else: # must be an existing file then
-        if not i_path.lower().endswith('.tar') and not i_path.lower().endswith('.zip') and not i_path.lower().endswith('.gz'):
-            sg.PopupError('Input file is not a supported archive! ', i_path)
-            return False, ext_type
-        else:
-            ext_type = Path(i_path).suffix[1:].lower() 
     
     # check output now
     if len(o_path) == 0 : # output folder
@@ -84,12 +78,9 @@ GuiWindow.progress_bar_total = len(process.tosearch)
 
 layout = [  [sg.Text('Android Forensics Tool', font=("Helvetica", 22))],
             [sg.Frame(layout=[
-                    [sg.Input(size=(97,1)), 
-                     sg.FileBrowse(font=normal_font, button_text='Browse File', key='INPUTFILEBROWSE'),
-                     sg.FolderBrowse(font=normal_font, button_text='Browse Folder', target=(sg.ThisRow, -2), key='INPUTFOLDERBROWSE')
-                    ]
+                    [sg.Input(size=(112,1)), sg.FolderBrowse(font=normal_font, button_text='Browse Folder')]
                 ],
-                title='Select a file (tar/zip/gz) or directory of the target Android full file system extraction for parsing:')],
+                    title='Select Input Dump Folder:')],
             [sg.Frame(layout=[
                     [sg.Input(size=(112,1)), sg.FolderBrowse(font=normal_font, button_text='Browse Folder')]
                 ], 
