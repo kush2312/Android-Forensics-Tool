@@ -49,7 +49,6 @@ from scripts.artifacts.powerOffReset import get_powerOffReset
 from scripts.artifacts.recentactivity import get_recentactivity
 from scripts.artifacts.lgRCS import get_lgRCS
 from scripts.artifacts.Oruxmaps import get_Oruxmaps
-from scripts.artifacts.roles import get_roles
 from scripts.artifacts.shareit import get_shareit
 from scripts.artifacts.shutdown_checkpoints import get_shutdown_checkpoints
 from scripts.artifacts.siminfo import get_siminfo
@@ -59,7 +58,6 @@ from scripts.artifacts.smyFiles import get_smyFiles
 from scripts.artifacts.smyfilesStored import get_smyfilesStored
 from scripts.artifacts.snapchat import get_snapchat
 from scripts.artifacts.teams import get_teams
-from scripts.artifacts.usageapps import get_usageapps
 from scripts.artifacts.usagestatsVersion import get_usagestatsVersion
 from scripts.artifacts.userDict import get_userDict
 from scripts.artifacts.vlcMedia import get_vlcMedia
@@ -84,18 +82,18 @@ tosearch = {
     'bluetoothConnections':('Bluetooth Connections', '*/data/misc/bluedroid/bt_config.conf'),
     'cachelocation': ('GEO Location', ('**/com.google.android.location/files/cache.cell/cache.cell', '**/com.google.android.location/files/cache.wifi/cache.wifi')),
     'calllog': ('Call Logs', '*/data/com.android.providers.contacts/databases/calllog.db'),
-    'calllogs':('Call Logs', ('**/com.android.providers.contacts/databases/contact*', '**/com.sec.android.provider.logsprovider/databases/logs.db*')),
-    'chrome':('Chromium', ('*/data/data/*/app_chrome/Default/History*', '*/data/data/*/app_sbrowser/Default/History*', '*/data/data/*/app_opera/History*')),
-    'chromeAutofill':('Chromium', ('*/data/data/*/app_chrome/Default/Web Data*', '*/data/data/*/app_sbrowser/Default/Web Data*', '*/data/data/*/app_opera/Web Data*')),
-    'chromeBookmarks':('Chromium', ('*/data/data/*/app_chrome/Default/Bookmarks*', '*/data/data/*/app_sbrowser/Default/Bookmarks*', '*/data/data/*/app_opera/Bookmarks*')),
-    'chromeCookies':('Chromium', ('*/data/data/*/app_chrome/Default/Cookies*', '*/data/data/*/app_sbrowser/Default/Cookies*', '*/data/data/*/app_opera/Cookies*')),
-    'chromeLoginData':('Chromium', ('*/data/data/*/app_chrome/Default/Login Data*', '*/data/data/*/app_sbrowser/Default/Login Data*', '*/data/data/*/app_opera/Login Data*')),
-    'chromeMediaHistory':('Chromium', ('*/data/data/*/app_chrome/Default/Media History*','*/data/data/*/app_sbrowser/Default/Media History*', '*/data/data/*/app_opera/Media History*')),
-    'chromeNetworkActionPredictor':('Chromium', ('*/data/data/*/app_Chrome/Default/Network Action Predictor*','*/data/data/*/app_sbrowser/Default/Network Action Predictor*', '*/data/data/*/app_opera/Network Action Predicator*')),
-    'chromeOfflinePages':('Chromium', ('*/data/data/*/app_chrome/Default/Offline Pages/metadata/OfflinePages.db*', '*/data/data/*/app_sbrowser/Default/Offline Pages/metadata/OfflinePages.db*')),
-    'chromeTopSites':('Chromium', ('*/data/data/*/app_chrome/Default/Top Sites*', '*/data/data/*/app_sbrowser/Default/Top Sites*', '*/data/*/app_opera/Top Sites*')),
+    'calllogs':('Call Logs', '**/com.android.providers.contacts/databases/contact*'),
+    'chrome':('Chromium', '*/data/data/*/app_chrome/Default/History*'),
+    'chromeAutofill':('Chromium', '*/data/data/*/app_chrome/Default/Web Data*'),
+    'chromeBookmarks':('Chromium', '*/data/data/*/app_chrome/Default/Bookmarks*'),
+    'chromeCookies':('Chromium', '*/data/data/*/app_chrome/Default/Cookies*'),
+    'chromeLoginData':('Chromium', '*/data/data/*/app_chrome/Default/Login Data*'),
+    'chromeMediaHistory':('Chromium', '*/data/data/*/app_chrome/Default/Media History*'),
+    'chromeNetworkActionPredictor':('Chromium', '*/data/data/*/app_Chrome/Default/Network Action Predictor*'),
+    'chromeOfflinePages':('Chromium', '*/data/data/*/app_chrome/Default/Offline Pages/metadata/OfflinePages.db*'),
+    'chromeTopSites':('Chromium', '*/data/data/*/app_chrome/Default/Top Sites*'),
     'clipBoard':('Clipboard', '*/data/*clipboard/*/*'),
-    'contacts':('Contacts', ('**/com.android.providers.contacts/databases/contact*', '**/com.sec.android.provider.logsprovider/databases/logs.db*')),
+    'contacts':('Contacts', '**/com.android.providers.contacts/databases/contact*'),
     'discreteNative':('Privacy Dashboard',('*/data/system/appops/discrete/*')),
     'DocList':('Google Drive', '*/data/data/com.google.android.apps.docs/databases/DocList.db*'),
     'emulatedSmeta':('Emulated Storage Metadata', '*/data/data/com.google.android.providers.media.module/databases/external.db*'),
@@ -124,7 +122,6 @@ tosearch = {
     'Oruxmaps':('GEO Location', '**/oruxmaps/tracklogs/oruxmapstracks.db*'),
     'permissions':('Permissions', '*/system/packages.xml'),
     'playgroundVault':('Encrypting Media Apps',('*/playground.develop.applocker/shared_prefs/crypto.KEY_256.xml','*/applocker/vault/*')),
-    'roles':('App Roles',('*/system/users/*/roles.xml','*/misc_de/*/apexdata/com.android.permission/roles.xml')),
     'shareit':('File Transfer', '*/com.lenovo.anyshare.gps/databases/history.db*'),
     'shutdown_checkpoints':('Power Events', '**/data/system/shutdown-checkpoints/*'),
     'siminfo':('Device Info', '*/user_de/*/com.android.providers.telephony/databases/telephony.db'),
@@ -134,7 +131,6 @@ tosearch = {
     'smyfilesStored':('Media Metadata', '**/com.sec.android.app.myfiles/databases/FileCache.db'),
     'snapchat': ('Snapchat', ('**/data/com.snapchat.android/databases/*.db', '**/data/com.snapchat.android/shared_prefs/*.xml')),
     'teams':('Teams', '*/com.microsoft.teams/databases/SkypeTeams.db*'),
-    'usageapps': ('App Interaction', '**/com.google.android.as/databases/reflection_gel_events.db*'),
     'usagestatsVersion':('Usage Stats', '*/system/usagestats/*/version'),
     'userDict':('User Dictionary', '**/com.android.providers.userdictionary/databases/user_dict.db*'),
     'vlcMedia': ('VLC', '*vlc_media.db*'),
