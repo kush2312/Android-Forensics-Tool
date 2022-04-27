@@ -2,7 +2,6 @@ import traceback
 
 from scripts.artifacts.accounts_ce import get_accounts_ce
 from scripts.artifacts.accounts_ce_authtokens import get_accounts_ce_authtokens
-from scripts.artifacts.accounts_de import get_accounts_de
 from scripts.artifacts.appicons import get_appicons
 from scripts.artifacts.battery_usage_v4 import get_battery_usage_v4
 from scripts.artifacts.bluetoothConnections import get_bluetoothConnections
@@ -80,7 +79,6 @@ tosearch = {
     'build':('Device Info', '*/vendor/build.prop'),
     'accounts_ce': ('Accounts_ce', '*/data/system_ce/*/accounts_ce.db'),
     'accounts_ce_authtokens':('Accounts_ce', '*/data/system_ce/*/accounts_ce.db'),
-    'accounts_de': ('Accounts_de', '*/data/system_de/*/accounts_de.db'),
     'appicons':('Installed Apps', '*/data/com.google.android.apps.nexuslauncher/databases/app_icons.db*'),
     'battery_usage_v4':('Settings Services', '**/com.google.android.settings.intelligence/databases/battery-usage-db-v4*'),
     'bluetoothConnections':('Bluetooth Connections', '*/data/misc/bluedroid/bt_config.conf'),
@@ -137,7 +135,7 @@ tosearch = {
     'snapchat': ('Snapchat', ('**/data/com.snapchat.android/databases/*.db', '**/data/com.snapchat.android/shared_prefs/*.xml')),
     'teams':('Teams', '*/com.microsoft.teams/databases/SkypeTeams.db*'),
     'usageapps': ('App Interaction', '**/com.google.android.as/databases/reflection_gel_events.db*'),
-    'usagestatsVersion':('Usage Stats', ('*/system/usagestats/*/version', '*/system_ce/*/usagestats/version')),
+    'usagestatsVersion':('Usage Stats', '*/system/usagestats/*/version'),
     'userDict':('User Dictionary', '**/com.android.providers.userdictionary/databases/user_dict.db*'),
     'vlcMedia': ('VLC', '*vlc_media.db*'),
     'vlcThumbs': ('VLC', '*/org.videolan.vlc/files/medialib/*.jpg'),

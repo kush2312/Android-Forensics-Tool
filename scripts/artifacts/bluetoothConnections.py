@@ -2,7 +2,6 @@ import csv
 import datetime
 import os
 import re
-import scripts.artifacts.artGlobals 
 
 from scripts.artifact_report import ArtifactHtmlReport
 from scripts.funcs import logfunc, logdevinfo, tsv, timeline, is_platform_windows
