@@ -22,7 +22,6 @@ from scripts.artifacts.gboard import get_gboardCache
 from scripts.artifacts.gmail import get_gmailActive
 from scripts.artifacts.googleCallScreen import get_googleCallScreen
 from scripts.artifacts.googleChat import get_googleChat
-from scripts.artifacts.googleDuo import get_googleDuo
 from scripts.artifacts.googleFitGMS import get_googleFitGMS
 from scripts.artifacts.googleKeepNotes import get_googleKeepNotes
 from scripts.artifacts.messages import get_messages
@@ -38,28 +37,17 @@ from scripts.artifacts.last_boot_time import get_last_boot_time
 from scripts.artifacts.pSettings import get_pSettings
 from scripts.artifacts.packageGplinks import get_packageGplinks
 from scripts.artifacts.permissions import get_permissions
-from scripts.artifacts.playgroundVault import get_playgroundVault
 from scripts.artifacts.powerOffReset import get_powerOffReset
 from scripts.artifacts.recentactivity import get_recentactivity
-from scripts.artifacts.lgRCS import get_lgRCS
-from scripts.artifacts.Oruxmaps import get_Oruxmaps
-from scripts.artifacts.shareit import get_shareit
 from scripts.artifacts.shutdown_checkpoints import get_shutdown_checkpoints
 from scripts.artifacts.siminfo import get_siminfo
 from scripts.artifacts.skype import get_skype
-from scripts.artifacts.smyfilesRecents import get_smyfilesRecents
-from scripts.artifacts.smyFiles import get_smyFiles
-from scripts.artifacts.smyfilesStored import get_smyfilesStored
-from scripts.artifacts.snapchat import get_snapchat
 from scripts.artifacts.teams import get_teams
 from scripts.artifacts.usagestatsVersion import get_usagestatsVersion
 from scripts.artifacts.userDict import get_userDict
 from scripts.artifacts.vlcMedia import get_vlcMedia
 from scripts.artifacts.vlcThumbs import get_vlcThumbs
 from scripts.artifacts.walStrings import get_walStrings
-from scripts.artifacts.wellbeing import get_wellbeing
-from scripts.artifacts.wellbeingURLs import get_wellbeingURLs
-from scripts.artifacts.wellbeingaccount import get_wellbeingaccount
 from scripts.artifacts.Whatsapp import get_Whatsapp
 from scripts.artifacts.wifiConfigstore import get_wifiConfigstore
 from scripts.artifacts.wifiHotspot import get_wifiHotspot
@@ -89,7 +77,6 @@ tosearch = {
     'gmailActive':('Gmail', '**/com.google.android.gm/shared_prefs/Gmail.xml'),
     'googleCallScreen':('Google Call Screen', ('**/com.google.android.dialer/databases/callscreen_transcripts*','**/com.google.android.dialer/files/callscreenrecordings/*.*')),
     'googleChat':('Google Chat', ('**/com.google.android.gm/databases/user_accounts/*/dynamite*.db','**/com.google.android.apps.dynamite/databases/dynamite*.db')),
-    'googleDuo':('Google Duo', ('**/com.google.android.apps.tachyon/databases/tachyon.db*','**/com.google.android.apps.tachyon/files/media/*.*')),
     'googleFitGMS': ('Google Fit (GMS)', ('*/data/data/com.google.android.gms/databases/fitness.db.*')),
     'googleKeepNotes':('Google Keep', "**/data/com.google.android.keep/databases/keep.db"),
     'googlemaplocation': ('GEO Location', ('**/com.google.android.apps.maps/databases/da_destination_history*')),
@@ -106,27 +93,16 @@ tosearch = {
     'quicksearch':('Google Now & QuickSearch', '*/com.google.android.googlequicksearchbox/app_session/*.binarypb'),
     'quicksearch_recent':('Google Now & QuickSearch', '*/com.google.android.googlequicksearchbox/files/recently/*'),
     'recentactivity':('Recent Activity', '*/data/system_ce/*'),
-    'lgRCS':('RCS Chats', '*/mmssms.db*'),
-    'Oruxmaps':('GEO Location', '**/oruxmaps/tracklogs/oruxmapstracks.db*'),
     'permissions':('Permissions', '*/system/packages.xml'),
-    'playgroundVault':('Encrypting Media Apps',('*/playground.develop.applocker/shared_prefs/crypto.KEY_256.xml','*/applocker/vault/*')),
-    'shareit':('File Transfer', '*/com.lenovo.anyshare.gps/databases/history.db*'),
     'shutdown_checkpoints':('Power Events', '**/data/system/shutdown-checkpoints/*'),
     'siminfo':('Device Info', '*/user_de/*/com.android.providers.telephony/databases/telephony.db'),
     'skype': ('Skype', '**/com.skype.raider/databases/live*'),
-    'smyfilesRecents':('Media Metadata', '*/com.sec.android.app.myfiles/databases/myfiles.db'),
-    'smyFiles':('Media Metadata', '**/com.sec.android.app.myfiles/databases/MyFiles*.db*'),
-    'smyfilesStored':('Media Metadata', '**/com.sec.android.app.myfiles/databases/FileCache.db'),
-    'snapchat': ('Snapchat', ('**/data/com.snapchat.android/databases/*.db', '**/data/com.snapchat.android/shared_prefs/*.xml')),
     'teams':('Teams', '*/com.microsoft.teams/databases/SkypeTeams.db*'),
     'usagestatsVersion':('Usage Stats', '*/system/usagestats/*/version'),
     'userDict':('User Dictionary', '**/com.android.providers.userdictionary/databases/user_dict.db*'),
     'vlcMedia': ('VLC', '*vlc_media.db*'),
     'vlcThumbs': ('VLC', '*/org.videolan.vlc/files/medialib/*.jpg'),
     'walStrings':('SQLite Journaling', ('**/*-wal', '**/*-journal')),
-    'wellbeing': ('Wellbeing', '**/com.google.android.apps.wellbeing/databases/app_usage*'),
-    'wellbeingURLs': ('Wellbeing', '**/com.google.android.apps.wellbeing/databases/app_usage*'), # Get app_usage & app_usage-wal
-    'wellbeingaccount': ('Wellbeing', '**/com.google.android.apps.wellbeing/files/AccountData.pb'),
     'Whatsapp':('Whatsapp', ('*/com.whatsapp/databases/*.db*','**/com.whatsapp/shared_prefs/com.whatsapp_preferences_light.xml')),
     'wifiConfigstore':('WiFi Profiles', ('**/misc/wifi/WifiConfigStore.xml', '**/misc**/apexdata/com.android.wifi/WifiConfigStore.xml')),
     'wifiHotspot':('WiFi Profiles', ('**/misc/wifi/softap.conf', '**/misc**/apexdata/com.android.wifi/WifiConfigStoreSoftAp.xml')),
