@@ -9,17 +9,11 @@ from scripts.artifacts.build import get_build
 from scripts.artifacts.burner import get_burner
 from scripts.artifacts.cachelocation import get_cachelocation
 from scripts.artifacts.calllog import get_calllog
-from scripts.artifacts.calllogs import get_calllogs
 from scripts.artifacts.chrome import get_chrome
-from scripts.artifacts.chromeAutofill import get_chromeAutofill
 from scripts.artifacts.chromeBookmarks import get_chromeBookmarks
 from scripts.artifacts.chromeCookies import get_chromeCookies
-from scripts.artifacts.chromeLoginData import get_chromeLoginData
-from scripts.artifacts.chromeMediaHistory import get_chromeMediaHistory
-from scripts.artifacts.chromeNetworkActionPredictor import get_chromeNetworkActionPredictor
 from scripts.artifacts.chromeOfflinePages import get_chromeOfflinePages
 from scripts.artifacts.chromeTopSites import get_chromeTopSites
-from scripts.artifacts.clipBoard import get_clipBoard
 from scripts.artifacts.contacts import get_contacts
 from scripts.artifacts.discreteNative import get_discreteNative
 from scripts.artifacts.DocList import get_DocList
@@ -74,7 +68,7 @@ from scripts.artifacts.wifiProfiles import get_wifiProfiles
 from scripts.funcs import *
 
 tosearch = {
-    'build':('Device Info', '*/vendor/build.prop'),
+    'build':('Device Info', '*/system/build.prop'),
     'accounts_ce': ('Accounts_ce', '*/data/system_ce/*/accounts_ce.db'),
     'accounts_ce_authtokens':('Accounts_ce', '*/data/system_ce/*/accounts_ce.db'),
     'appicons':('Installed Apps', '*/data/com.google.android.apps.nexuslauncher/databases/app_icons.db*'),
@@ -82,17 +76,11 @@ tosearch = {
     'bluetoothConnections':('Bluetooth Connections', '*/data/misc/bluedroid/bt_config.conf'),
     'cachelocation': ('GEO Location', ('**/com.google.android.location/files/cache.cell/cache.cell', '**/com.google.android.location/files/cache.wifi/cache.wifi')),
     'calllog': ('Call Logs', '*/data/com.android.providers.contacts/databases/calllog.db'),
-    'calllogs':('Call Logs', '**/com.android.providers.contacts/databases/contact*'),
     'chrome':('Chromium', '*/data/data/*/app_chrome/Default/History*'),
-    'chromeAutofill':('Chromium', '*/data/data/*/app_chrome/Default/Web Data*'),
     'chromeBookmarks':('Chromium', '*/data/data/*/app_chrome/Default/Bookmarks*'),
     'chromeCookies':('Chromium', '*/data/data/*/app_chrome/Default/Cookies*'),
-    'chromeLoginData':('Chromium', '*/data/data/*/app_chrome/Default/Login Data*'),
-    'chromeMediaHistory':('Chromium', '*/data/data/*/app_chrome/Default/Media History*'),
-    'chromeNetworkActionPredictor':('Chromium', '*/data/data/*/app_Chrome/Default/Network Action Predictor*'),
     'chromeOfflinePages':('Chromium', '*/data/data/*/app_chrome/Default/Offline Pages/metadata/OfflinePages.db*'),
     'chromeTopSites':('Chromium', '*/data/data/*/app_chrome/Default/Top Sites*'),
-    'clipBoard':('Clipboard', '*/data/*clipboard/*/*'),
     'contacts':('Contacts', '**/com.android.providers.contacts/databases/contact*'),
     'discreteNative':('Privacy Dashboard',('*/data/system/appops/discrete/*')),
     'DocList':('Google Drive', '*/data/data/com.google.android.apps.docs/databases/DocList.db*'),
