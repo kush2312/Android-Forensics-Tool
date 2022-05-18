@@ -48,7 +48,7 @@ def process_siminfo(folder, uid, report_folder):
         cursor.execute('''
         SELECT
             number,
-            card_id,
+            sim_id,
             display_name,
             carrier_name,
             carrier_name,

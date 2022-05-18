@@ -7,7 +7,6 @@ from scripts.artifacts.battery_usage_v4 import get_battery_usage_v4
 from scripts.artifacts.bluetoothConnections import get_bluetoothConnections
 from scripts.artifacts.build import get_build
 from scripts.artifacts.burner import get_burner
-from scripts.artifacts.cachelocation import get_cachelocation
 from scripts.artifacts.calllog import get_calllog
 from scripts.artifacts.chrome import get_chrome
 from scripts.artifacts.chromeBookmarks import get_chromeBookmarks
@@ -16,42 +15,26 @@ from scripts.artifacts.chromeOfflinePages import get_chromeOfflinePages
 from scripts.artifacts.chromeTopSites import get_chromeTopSites
 from scripts.artifacts.contacts import get_contacts
 from scripts.artifacts.discreteNative import get_discreteNative
-from scripts.artifacts.DocList import get_DocList
-from scripts.artifacts.emulatedSmeta import get_emulatedSmeta
-from scripts.artifacts.gboard import get_gboardCache
 from scripts.artifacts.gmail import get_gmailActive
-from scripts.artifacts.googleCallScreen import get_googleCallScreen
-from scripts.artifacts.googleChat import get_googleChat
-from scripts.artifacts.googleFitGMS import get_googleFitGMS
 from scripts.artifacts.googleKeepNotes import get_googleKeepNotes
 from scripts.artifacts.messages import get_messages
 from scripts.artifacts.googlePhotos import get_googlePhotos
-from scripts.artifacts.googlemaplocation import get_googlemaplocation
-from scripts.artifacts.googlemapaudio import get_googlemapaudio
-from scripts.artifacts.googleNowPlaying import get_googleNowPlaying
 from scripts.artifacts.googlePlaySearches import get_googlePlaySearches
 from scripts.artifacts.googleQuickSearchbox import get_quicksearch
 from scripts.artifacts.googleQuickSearchboxRecent import get_quicksearch_recent
 from scripts.artifacts.googleTasks import get_googleTasks
 from scripts.artifacts.last_boot_time import get_last_boot_time
-from scripts.artifacts.pSettings import get_pSettings
 from scripts.artifacts.packageGplinks import get_packageGplinks
 from scripts.artifacts.permissions import get_permissions
 from scripts.artifacts.powerOffReset import get_powerOffReset
 from scripts.artifacts.recentactivity import get_recentactivity
 from scripts.artifacts.shutdown_checkpoints import get_shutdown_checkpoints
 from scripts.artifacts.siminfo import get_siminfo
-from scripts.artifacts.skype import get_skype
 from scripts.artifacts.teams import get_teams
 from scripts.artifacts.usagestatsVersion import get_usagestatsVersion
 from scripts.artifacts.userDict import get_userDict
-from scripts.artifacts.vlcMedia import get_vlcMedia
-from scripts.artifacts.vlcThumbs import get_vlcThumbs
-from scripts.artifacts.walStrings import get_walStrings
 from scripts.artifacts.Whatsapp import get_Whatsapp
-from scripts.artifacts.wifiConfigstore import get_wifiConfigstore
 from scripts.artifacts.wifiHotspot import get_wifiHotspot
-from scripts.artifacts.wifiProfiles import get_wifiProfiles
 
 from scripts.funcs import *
 
@@ -62,7 +45,6 @@ tosearch = {
     'appicons':('Installed Apps', '*/data/com.google.android.apps.nexuslauncher/databases/app_icons.db*'),
     'battery_usage_v4':('Settings Services', '**/com.google.android.settings.intelligence/databases/battery-usage-db-v4*'),
     'bluetoothConnections':('Bluetooth Connections', '*/data/misc/bluedroid/bt_config.conf'),
-    'cachelocation': ('GEO Location', ('**/com.google.android.location/files/cache.cell/cache.cell', '**/com.google.android.location/files/cache.wifi/cache.wifi')),
     'calllog': ('Call Logs', '*/data/com.android.providers.contacts/databases/calllog.db'),
     'chrome':('Chromium', '*/data/data/*/app_chrome/Default/History*'),
     'chromeBookmarks':('Chromium', '*/data/data/*/app_chrome/Default/Bookmarks*'),
@@ -71,23 +53,13 @@ tosearch = {
     'chromeTopSites':('Chromium', '*/data/data/*/app_chrome/Default/Top Sites*'),
     'contacts':('Contacts', '**/com.android.providers.contacts/databases/contact*'),
     'discreteNative':('Privacy Dashboard',('*/data/system/appops/discrete/*')),
-    'DocList':('Google Drive', '*/data/data/com.google.android.apps.docs/databases/DocList.db*'),
-    'emulatedSmeta':('Emulated Storage Metadata', '*/data/data/com.google.android.providers.media.module/databases/external.db*'),
-    'gboardCache':('Gboard Keyboard', '**/com.google.android.inputmethod.latin/databases/trainingcache*.db'),
     'gmailActive':('Gmail', '**/com.google.android.gm/shared_prefs/Gmail.xml'),
-    'googleCallScreen':('Google Call Screen', ('**/com.google.android.dialer/databases/callscreen_transcripts*','**/com.google.android.dialer/files/callscreenrecordings/*.*')),
-    'googleChat':('Google Chat', ('**/com.google.android.gm/databases/user_accounts/*/dynamite*.db','**/com.google.android.apps.dynamite/databases/dynamite*.db')),
-    'googleFitGMS': ('Google Fit (GMS)', ('*/data/data/com.google.android.gms/databases/fitness.db.*')),
     'googleKeepNotes':('Google Keep', "**/data/com.google.android.keep/databases/keep.db"),
-    'googlemaplocation': ('GEO Location', ('**/com.google.android.apps.maps/databases/da_destination_history*')),
-    'googlemapaudio': ('Google Maps Voice Guidance', '**/data/data/com.google.android.apps.maps/app_tts-cache/*_*'),
     'messages': ('Messages', ('**/com.google.android.apps.messaging/databases/bugle_db*')),
-    'googleNowPlaying':('Now Playing', ('*/data/data/com.google.intelligence.sense/db/history_db*','*/data/data/com.google.android.as/databases/history_db*')),
     'googlePhotos':('Google Photos', ('*/data/data/com.google.android.apps.photos/databases/gphotos0.db*','*/data/data/com.google.android.apps.photos/databases/disk_cache*','*/data/data/com.google.android.apps.photos/cache/glide_cache/*','*/data/data/com.google.android.apps.photos/databases/local_trash.db*','*/data/data/com.google.android.apps.photos/files/trash_files/*')),
     'googlePlaySearches':('Google Play', '*/data/data/com.android.vending/databases/suggestions.db*'),
     'googleTasks':('Google Tasks', '*/com.google.android.apps.tasks/files/tasks-*/data.db'),
     'last_boot_time': ('Power Events', '**/data/misc/bootstat/last_boot_time_utc'),
-    'pSettings':('Device Info', '*/data/data/com.google.android.gsf/databases/googlesettings.db*'),
     'packageGplinks': ('Installed Apps', '*/system/packages.list'),
     'powerOffReset': ('Power Events', ('*/data/log/power_off_reset_reason.txt','*/data/log/power_off_reset_reason_backup.txt')),
     'quicksearch':('Google Now & QuickSearch', '*/com.google.android.googlequicksearchbox/app_session/*.binarypb'),
@@ -96,17 +68,11 @@ tosearch = {
     'permissions':('Permissions', '*/system/packages.xml'),
     'shutdown_checkpoints':('Power Events', '**/data/system/shutdown-checkpoints/*'),
     'siminfo':('Device Info', '*/user_de/*/com.android.providers.telephony/databases/telephony.db'),
-    'skype': ('Skype', '**/com.skype.raider/databases/live*'),
     'teams':('Teams', '*/com.microsoft.teams/databases/SkypeTeams.db*'),
     'usagestatsVersion':('Usage Stats', '*/system/usagestats/*/version'),
     'userDict':('User Dictionary', '**/com.android.providers.userdictionary/databases/user_dict.db*'),
-    'vlcMedia': ('VLC', '*vlc_media.db*'),
-    'vlcThumbs': ('VLC', '*/org.videolan.vlc/files/medialib/*.jpg'),
-    'walStrings':('SQLite Journaling', ('**/*-wal', '**/*-journal')),
     'Whatsapp':('Whatsapp', ('*/com.whatsapp/databases/*.db*','**/com.whatsapp/shared_prefs/com.whatsapp_preferences_light.xml')),
-    'wifiConfigstore':('WiFi Profiles', ('**/misc/wifi/WifiConfigStore.xml', '**/misc**/apexdata/com.android.wifi/WifiConfigStore.xml')),
-    'wifiHotspot':('WiFi Profiles', ('**/misc/wifi/softap.conf', '**/misc**/apexdata/com.android.wifi/WifiConfigStoreSoftAp.xml')),
-    'wifiProfiles':('WiFi Profiles', ('**/misc/wifi/WifiConfigStore.xml', '**/misc**/apexdata/com.android.wifi/WifiConfigStore.xml')),
+    'wifiHotspot':('WiFi Profiles', '**/misc/wifi/softap.conf'),
     }
 
 slash = '\\' if is_platform_windows() else '/'
