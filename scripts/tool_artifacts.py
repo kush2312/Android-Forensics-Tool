@@ -5,7 +5,6 @@ from scripts.artifacts.accounts_ce_authtokens import get_accounts_ce_authtokens
 from scripts.artifacts.appicons import get_appicons
 from scripts.artifacts.bluetoothConnections import get_bluetoothConnections
 from scripts.artifacts.build import get_build
-from scripts.artifacts.burner import get_burner
 from scripts.artifacts.calllog import get_calllog
 from scripts.artifacts.chrome import get_chrome
 from scripts.artifacts.chromeBookmarks import get_chromeBookmarks
@@ -13,7 +12,6 @@ from scripts.artifacts.chromeCookies import get_chromeCookies
 from scripts.artifacts.chromeOfflinePages import get_chromeOfflinePages
 from scripts.artifacts.chromeTopSites import get_chromeTopSites
 from scripts.artifacts.contacts import get_contacts
-from scripts.artifacts.gmail import get_gmailActive
 from scripts.artifacts.googleKeepNotes import get_googleKeepNotes
 from scripts.artifacts.messages import get_messages
 from scripts.artifacts.last_boot_time import get_last_boot_time
@@ -41,7 +39,6 @@ tosearch = {
     'chromeOfflinePages':('Chromium', '*/data/data/*/app_chrome/Default/Offline Pages/metadata/OfflinePages.db*'),
     'chromeTopSites':('Chromium', '*/data/data/*/app_chrome/Default/Top Sites*'),
     'contacts':('Contacts', '**/com.android.providers.contacts/databases/contact*'),
-    'gmailActive':('Gmail', '**/com.google.android.gm/shared_prefs/Gmail.xml'),
     'googleKeepNotes':('Google Keep', "**/data/com.google.android.keep/databases/keep.db"),
     'messages': ('Messages', ('**/com.google.android.apps.messaging/databases/bugle_db*')),
     'last_boot_time': ('Power Events', '**/data/misc/bootstat/last_boot_time_utc'),
