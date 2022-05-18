@@ -8,8 +8,6 @@ page_header = \
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>{0}</title>
-        <!-- Dark mode -->
-        <link rel="stylesheet" href="_elements/dark-mode.css">
         <!-- Font Awesome -->
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
         <!-- Google Fonts Roboto -->
@@ -41,11 +39,6 @@ body_start = \
        <span></span>
       </button>
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">{0}</a>
-        <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="darkSwitch" />
-            <label class="custom-control-label mr-2" for="darkSwitch" style="color:white">Dark Switch</label>
-        </div>
-        <script src="_elements/dark-mode-switch.js"></script>
     </nav>
 
     <div class="container-fluid">

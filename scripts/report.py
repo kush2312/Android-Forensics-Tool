@@ -5,7 +5,6 @@ import shutil
 
 from collections import OrderedDict
 from scripts.html_parts import *
-from scripts.funcs import logfunc
 from scripts.version_info import version
 
 def get_icon_name(category, artifact):
@@ -264,8 +263,6 @@ def generate_report(reportfolderbase, time_in_secs, time_HMS, extraction_type, i
     
     shutil.copy2(os.path.join(__location__,"dashboard.css"), elements_folder)
     shutil.copy2(os.path.join(__location__,"feather.min.js"), elements_folder)
-    shutil.copy2(os.path.join(__location__,"dark-mode.css"), elements_folder)
-    shutil.copy2(os.path.join(__location__,"dark-mode-switch.js"), elements_folder)
     shutil.copytree(os.path.join(__location__,"MDB-Free_4.13.0"), os.path.join(elements_folder, 'MDB-Free_4.13.0'))
     
     #Copies custom.css & sidebard.js files to local directory

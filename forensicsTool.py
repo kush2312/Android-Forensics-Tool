@@ -1,14 +1,10 @@
 import process
 import os
 import PySimpleGUI as sg
-import sys
 import webbrowser
 
-from scripts.funcs import *
 from scripts.version_info import version
-from time import process_time, gmtime, strftime
 from scripts.tool_artifacts import *
-from scripts.search_files import *
 
 def ValidateInput(values, window):
     '''Returns tuple (success, extraction_type)'''

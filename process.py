@@ -1,10 +1,7 @@
-import io
 import os
 import scripts.report as report
-import traceback
 
 from scripts.search_files import *
-from scripts.funcs import *
 from scripts.tool_artifacts import *
 from scripts.version_info import version
 from time import process_time, gmtime, strftime
