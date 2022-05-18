@@ -78,11 +78,11 @@ GuiWindow.progress_bar_total = len(process.tosearch)
 
 layout = [  [sg.Text('Android Forensics Tool', font=("Helvetica", 22))],
             [sg.Frame(layout=[
-                    [sg.Input(size=(80,2), font=(normal_font, 12)), sg.FolderBrowse(font=(normal_font, 12), button_text='Browse Folder')]
+                    [sg.Input(size=(80,2), font=(normal_font, 12), default_text='E:/Final Dump'), sg.FolderBrowse(font=(normal_font, 12), button_text='Browse Folder')]
                 ],
                     title='Select Input Dump Folder:')],
             [sg.Frame(layout=[
-                    [sg.Input(size=(80,1), font=(normal_font, 12)), sg.FolderBrowse(font=(normal_font, 12), button_text='Browse Folder')]
+                    [sg.Input(size=(80,1), font=(normal_font, 12), default_text='E:/Output'), sg.FolderBrowse(font=(normal_font, 12), button_text='Browse Folder')]
                 ], 
                     title='Select Output Folder:')],
             [sg.Text('Available Modules')],
