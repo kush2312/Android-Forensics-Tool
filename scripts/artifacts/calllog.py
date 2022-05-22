@@ -55,7 +55,7 @@ def get_calllog(files_found, report_folder, seeker, wrap_text):
         report = ArtifactHtmlReport('Call logs')
         report.start_artifact_report(report_folder, 'Call logs')
         report.add_script()
-        data_headers = ('Call Date', 'Phone Account Address', 'Partner', 'Type','Duration in Secs','Partner Location','Country ISO','Data','Mime Type','Transcription','Deleted')
+        data_headers = ('Call Date', 'Phone Account Address', 'Partner', 'Type','Duration in Secs','Partner Location','Country ISO','Deleted')
         data_list = []
         for row in all_rows:
             # Setup icons for call type
@@ -70,7 +70,7 @@ def get_calllog(files_found, report_folder, seeker, wrap_text):
             else:
                 call_type_html = call_type
 
-            data_list.append((row[0], row[1], row[2], call_type_html, str(row[4]), row[5], row[6], row[7], row[8], row[9], str(row[10])))
+            data_list.append((row[0], row[1], row[2], call_type_html, str(row[4]), row[5], row[6], str(row[10])))
 
         report.write_artifact_data_table(data_headers, data_list, file_found, html_escape=False)
         report.end_artifact_report()

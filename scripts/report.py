@@ -5,6 +5,7 @@ import shutil
 
 from collections import OrderedDict
 from scripts.html_parts import *
+from scripts.funcs import *
 from scripts.version_info import version
 
 def get_icon_name(category, artifact):

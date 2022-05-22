@@ -71,12 +71,6 @@ class ArtifactHtmlReport:
         num_entries = len(data_list)
         if write_total:
             self.write_minor_header(f'Total number of entries: {num_entries}', 'h6')
-        if write_location:
-            if is_platform_windows():
-                source_path = source_path.replace('/', '\\')
-            if source_path.startswith('\\\\?\\'):
-                source_path = source_path[4:]
-            self.write_lead_text(f'{self.artifact_name} located at: {source_path}')
 
         self.report_file.write('<br />')
 
@@ -100,8 +94,6 @@ class ArtifactHtmlReport:
                 self.report_file.write('<tr>' + ''.join( ('<td>{}</td>'.format(str(x) if x != None else '') for x in row) ) + '</tr>')
         
         self.report_file.write('</tbody>')
-        if cols_repeated_at_bottom:
-            self.report_file.write('<tfoot><tr>' + ''.join( ('<th>{}</th>'.format(html.escape(str(x))) for x in data_headers) ) + '</tr></tfoot>')
         self.report_file.write('</table>')
         if table_responsive:
             self.report_file.write("</div>")

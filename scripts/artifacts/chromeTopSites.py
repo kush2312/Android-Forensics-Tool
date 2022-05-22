@@ -54,10 +54,10 @@ def get_chromeTopSites(files_found, report_folder, seeker, wrap_text):
             report_path = get_next_unused_name(report_path)[:-9] # remove .temphtml
             report.start_artifact_report(report_folder, os.path.basename(report_path))
             report.add_script()
-            data_headers = ('URL','Rank','Title','Redirects')
+            data_headers = ('URL','Rank','Title')
             data_list = []
             for row in all_rows:
-                data_list.append((row[0],row[1],row[2],row[3]))
+                data_list.append((row[0],row[1],row[2]))
 
             report.write_artifact_data_table(data_headers, data_list, file_found)
             report.end_artifact_report()

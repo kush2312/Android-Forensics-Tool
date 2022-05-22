@@ -53,7 +53,7 @@ def process_accounts_ce_authtokens(folder, uid, report_folder):
         data_list = []
         for row in all_rows:
             data_list.append((row[0], row[1], row[2], row[3], row[4]))
-        report.write_artifact_data_table(data_headers, data_list, folder)
+        report.write_artifact_data_table(data_headers, data_list, folder, html_escape=False)
         report.end_artifact_report()
         
         tsvname = f'authtokens {uid}'

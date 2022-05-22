@@ -59,11 +59,11 @@ def get_chrome(files_found, report_folder, seeker, wrap_text):
             report_path = get_next_unused_name(report_path)[:-9] # remove .temphtml
             report.start_artifact_report(report_folder, os.path.basename(report_path))
             report.add_script()
-            data_headers = ('Last Visit Time','URL','Title','Visit Count','Typed Count','ID','Hidden')
+            data_headers = ('Last Visit Time','URL','Title','Visit Count','Typed Count','ID')
             data_list = []
             for row in all_rows:
                 if wrap_text:
-                    data_list.append((row[0],textwrap.fill(row[1], width=100),row[2],row[3],row[4],row[5],row[6]))
+                    data_list.append((row[0],textwrap.fill(row[1], width=100),row[2],row[3],row[4],row[5]))
                 else:
                     data_list.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
             report.write_artifact_data_table(data_headers, data_list, file_found)
