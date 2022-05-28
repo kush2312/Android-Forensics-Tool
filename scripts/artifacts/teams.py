@@ -1,5 +1,12 @@
 import os
 import sqlite3
+
+import requests
+import json
+from bs4 import BeautifulSoup
+import urllib.parse
+
+from scripts.artifacts.api_key import key
 from scripts.artifact_report import ArtifactHtmlReport
 from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, get_next_unused_name, open_sqlite_db_readonly
 
@@ -32,7 +39,7 @@ def get_teams(files_found, report_folder, seeker, wrap_text):
             report = ArtifactHtmlReport('Teams Messages')
             report.start_artifact_report(report_folder, 'Teams Messages')
             report.add_script()
-            data_headers = ('Timestamp','User Display Name','Content','Conversation ID','Message ID', 'Topic Name','Delete Time')
+            data_headers = ('Timestamp','User Display Name','Content','Message ID','Delete Time', 'Suspicious','Malware', 'Phishing', 'Risk Score')
             data_list=[]
             for row in all_rows:
                 timeone = row[0]
@@ -41,7 +48,25 @@ def get_teams(files_found, report_folder, seeker, wrap_text):
                     timeone = ''
                 if timetwo == '1970-01-01 00:00:00':
                     timetwo = ''
-                data_list.append((timeone, row[1], row[2], row[5], row[6], row[3], timetwo))
+                content = row[2]
+                soup = BeautifulSoup(content, 'html.parser')
+                a = soup.find('a') 
+                suspicious = False
+                malware = False
+                phishing = False
+                risk_score = 0
+                if a:
+                    url = a['href']
+                    parsed = urllib.parse.quote(url, safe='')
+                    api = "https://ipqualityscore.com/api/json/url/" + key + "/" + parsed
+                    response = requests.get(api)
+                    response_json = json.loads(response.content)
+                    suspicious = response_json.get('suspicious', "")
+                    malware = response_json.get('malware', "")
+                    phishing = response_json.get('phishing', "")
+                    risk_score = response_json.get('risk_score', "")
+
+                data_list.append((timeone, row[1], row[2], row[6], timetwo, suspicious, malware, phishing, risk_score))
             report.write_artifact_data_table(data_headers, data_list, file_found) #, html_escape=False
             report.end_artifact_report()
             

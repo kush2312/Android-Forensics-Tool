@@ -1,5 +1,9 @@
-import sqlite3
+import requests
+import json
 
+from sqlalchemy import true
+
+from scripts.artifacts.api_key import key
 from scripts.artifact_report import ArtifactHtmlReport
 from scripts.funcs import logfunc, tsv, timeline, open_sqlite_db_readonly
 
@@ -55,7 +59,7 @@ def get_calllog(files_found, report_folder, seeker, wrap_text):
         report = ArtifactHtmlReport('Call logs')
         report.start_artifact_report(report_folder, 'Call logs')
         report.add_script()
-        data_headers = ('Call Date', 'Phone Account Address', 'Partner', 'Type','Duration in Secs','Partner Location','Country ISO','Deleted')
+        data_headers = ('Call Date', 'Phone Account Address', 'Partner', 'Type','Duration in Secs','Deleted','Carrier', 'Region', 'Malicious')
         data_list = []
         for row in all_rows:
             # Setup icons for call type
@@ -69,8 +73,19 @@ def get_calllog(files_found, report_folder, seeker, wrap_text):
             elif call_type == 'Answered Externally': call_type_html = call_type + ' <i data-feather="phone-forwarded"></i>'
             else:
                 call_type_html = call_type
+            
+            api = "https://ipqualityscore.com/api/json/phone/" + key + "/" + row[2]
+            response = requests.get(api)
 
-            data_list.append((row[0], row[1], row[2], call_type_html, str(row[4]), row[5], row[6], str(row[10])))
+            response_json = json.loads(response.content)
+            carrier = response_json.get('carrier', "")
+            region = response_json.get('region', "")
+            fraud_score = response_json.get('fraud_score', "")
+            malicious = False
+            if fraud_score>30:
+                malicious = True
+
+            data_list.append((row[0], row[1], row[2], call_type_html, str(row[4]), str(row[10]), carrier, region, malicious))
 
         report.write_artifact_data_table(data_headers, data_list, file_found, html_escape=False)
         report.end_artifact_report()

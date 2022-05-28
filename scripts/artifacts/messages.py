@@ -1,13 +1,10 @@
-# Google Messages
-# Author:  Josh Hickman (josh@thebinaryhick.blog)
-# Date 2021-01-30
-# Version: 0.1
-# Requirements:  None
+import urllib.parse
+import flask_restful
+import validators
+import requests
+import json
 
-import os
-import sqlite3
-import textwrap
-
+from scripts.artifacts.api_key import key
 from scripts.artifact_report import ArtifactHtmlReport
 from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, open_sqlite_db_readonly
 
@@ -46,10 +43,25 @@ def get_messages(files_found, report_folder, seeker, wrap_text):
             report = ArtifactHtmlReport('Messages')
             report.start_artifact_report(report_folder, 'Messages')
             report.add_script()
-            data_headers = ('Message Timestamp (UTC)','Message Type','Other Participant/Conversation Name','Message Sender','Message','Attachment Byte Size','Attachment Location') 
+            data_headers = ('Message Timestamp (UTC)','Message Type','Other Participant/Conversation Name','Message Sender','Message', 'Suspicious','Malware', 'Phishing', 'Risk Score') 
             data_list = []
             for row in all_rows:
-                data_list.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
+                message_data = row[4]
+                isUrl =  validators.url(message_data)
+                suspicious = False
+                malware = False
+                phishing = False
+                risk_score = 0
+                if isUrl:
+                    parsed_link = urllib.parse.quote('http://www.csm-testcenter.org/download/malicious/index.html', safe='')
+                    api = "https://ipqualityscore.com/api/json/url/" + key + "/" + parsed_link
+                    response = requests.get(api)
+                    response_json = json.loads(response.content)
+                    suspicious = response_json.get('suspicious', "")
+                    malware = response_json.get('malware', "")
+                    phishing = response_json.get('phishing', "")
+                    risk_score = response_json.get('risk_score', "")
+                data_list.append((row[0],row[1],row[2],row[3],row[4], suspicious, malware, phishing, risk_score))
 
             report.write_artifact_data_table(data_headers, data_list, file_found)
             report.end_artifact_report()

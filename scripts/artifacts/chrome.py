@@ -1,8 +1,10 @@
 import os
-import sqlite3
 import textwrap
 import urllib.parse
+import requests
+import json
 
+from scripts.artifacts.api_key import key
 from scripts.artifact_report import ArtifactHtmlReport
 from scripts.funcs import logfunc, tsv, timeline, is_platform_windows, get_next_unused_name, open_sqlite_db_readonly, does_column_exist_in_db
 
@@ -59,13 +61,22 @@ def get_chrome(files_found, report_folder, seeker, wrap_text):
             report_path = get_next_unused_name(report_path)[:-9] # remove .temphtml
             report.start_artifact_report(report_folder, os.path.basename(report_path))
             report.add_script()
-            data_headers = ('Last Visit Time','URL','Title','Visit Count','Typed Count','ID')
+            data_headers = ('Last Visit Time','URL','Title','Visit Count', 'IP Address', 'Suspicious','Malware', 'Phishing', 'Risk Score')
             data_list = []
             for row in all_rows:
+                parsed_link = urllib.parse.quote(row[1], safe='')
+                api = "https://ipqualityscore.com/api/json/url/" + key + "/" + parsed_link
+                response = requests.get(api)
+                response_json = json.loads(response.content)
+                ip_address = response_json.get('ip_address', "")
+                suspicious = response_json.get('suspicious', "")
+                malware = response_json.get('malware', "")
+                phishing = response_json.get('phishing', "")
+                risk_score = response_json.get('risk_score', "")
                 if wrap_text:
-                    data_list.append((row[0],textwrap.fill(row[1], width=100),row[2],row[3],row[4],row[5]))
+                    data_list.append((row[0],textwrap.fill(row[1], width=30),row[2],row[3], ip_address, suspicious, malware, phishing, risk_score))
                 else:
-                    data_list.append((row[0],row[1],row[2],row[3],row[4],row[5],row[6]))
+                    data_list.append((row[0],row[1],row[2],row[3], ip_address, suspicious, malware, phishing, risk_score))
             report.write_artifact_data_table(data_headers, data_list, file_found)
             report.end_artifact_report()
             
