@@ -6,30 +6,36 @@ import requests
 import json
 import json
 from bs4 import BeautifulSoup
+import re
 
-message = '<p>Hi</p>'
-soup = BeautifulSoup(message, 'html.parser')
 
-a = soup.find('a') 
+myString = "Get Free Bitcoin Worth Rs.1000!! Click on this link:"
 
-if a:
-    url = a['href']
-    print(url)
+url=""
+try:
+    url = re.search("(?P<url>https?://[^\s]+)", myString).group("url")
+except:
+    new=""
 
-else:
-    print("Here")
+print(url)
 
-parsed = urllib.parse.quote(url, safe='')
-print(parsed)
 
-api = "https://ipqualityscore.com/api/json/url/" + "vKb0lHRVThz0TCnZ84qGLqOHaFl5W0pi" + "/" + parsed
-response = requests.get(api)
-response_json = json.loads(response.content)
-ip_address = response_json.get('ip_address', "")
-suspicious = response_json.get('suspicious', "")
-malware = response_json.get('malware', "")
-phishing = response_json.get('phishing', "")
-risk_score = response_json.get('risk_score', "")
+
+# message_data = row[4]
+# isUrl =  validators.url(message_data)
+# suspicious = False
+# malware = False
+# phishing = False
+# risk_score = 0
+# if isUrl:
+#     parsed_link = urllib.parse.quote('http://www.csm-testcenter.org/download/malicious/index.html', safe='')
+#     api = "https://ipqualityscore.com/api/json/url/" + key + "/" + parsed_link
+#     response = requests.get(api)
+#     response_json = json.loads(response.content)
+#     suspicious = response_json.get('suspicious', "")
+#     malware = response_json.get('malware', "")
+#     phishing = response_json.get('phishing', "")
+#     risk_score = response_json.get('risk_score', "")
 
 # print(response.content)
 

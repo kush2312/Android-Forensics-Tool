@@ -3,6 +3,7 @@ import flask_restful
 import validators
 import requests
 import json
+import re
 
 from scripts.artifacts.api_key import key
 from scripts.artifact_report import ArtifactHtmlReport
@@ -24,10 +25,6 @@ def get_messages(files_found, report_folder, seeker, wrap_text):
         conversations.name AS "Other Participant/Conversation Name",
         participants.display_destination AS "Message Sender",
         parts.text AS "Message",
-        CASE
-        WHEN parts.file_size_bytes=-1 THEN "N/A"
-        ELSE parts.file_size_bytes
-        END AS "Attachment Byte Size",
         parts.local_cache_path AS "Attachment Location"
         FROM
         parts
@@ -47,13 +44,17 @@ def get_messages(files_found, report_folder, seeker, wrap_text):
             data_list = []
             for row in all_rows:
                 message_data = row[4]
-                isUrl =  validators.url(message_data)
+                url=""
+                try:
+                    url = re.search("(?P<url>https?://[^\s]+)", message_data).group("url")
+                except:
+                    url=""
                 suspicious = False
                 malware = False
                 phishing = False
                 risk_score = 0
-                if isUrl:
-                    parsed_link = urllib.parse.quote('http://www.csm-testcenter.org/download/malicious/index.html', safe='')
+                if url!="":
+                    parsed_link = urllib.parse.quote(url, safe='')
                     api = "https://ipqualityscore.com/api/json/url/" + key + "/" + parsed_link
                     response = requests.get(api)
                     response_json = json.loads(response.content)

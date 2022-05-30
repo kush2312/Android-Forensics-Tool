@@ -39,15 +39,14 @@ def get_teams(files_found, report_folder, seeker, wrap_text):
             report = ArtifactHtmlReport('Teams Messages')
             report.start_artifact_report(report_folder, 'Teams Messages')
             report.add_script()
-            data_headers = ('Timestamp','User Display Name','Content','Message ID','Delete Time', 'Suspicious','Malware', 'Phishing', 'Risk Score')
+            data_headers = ('Timestamp','User Display Name','Content','Message ID', 'Suspicious','Malware', 'Phishing', 'Risk Score')
             data_list=[]
             for row in all_rows:
+                if row[1]=="":
+                    continue
                 timeone = row[0]
-                timetwo = row[4]
                 if timeone == '1970-01-01 00:00:00':
                     timeone = ''
-                if timetwo == '1970-01-01 00:00:00':
-                    timetwo = ''
                 content = row[2]
                 soup = BeautifulSoup(content, 'html.parser')
                 a = soup.find('a') 
@@ -66,7 +65,7 @@ def get_teams(files_found, report_folder, seeker, wrap_text):
                     phishing = response_json.get('phishing', "")
                     risk_score = response_json.get('risk_score', "")
 
-                data_list.append((timeone, row[1], row[2], row[6], timetwo, suspicious, malware, phishing, risk_score))
+                data_list.append((timeone, row[1], row[2], row[6], suspicious, malware, phishing, risk_score))
             report.write_artifact_data_table(data_headers, data_list, file_found) #, html_escape=False
             report.end_artifact_report()
             
@@ -104,10 +103,10 @@ def get_teams(files_found, report_folder, seeker, wrap_text):
             report = ArtifactHtmlReport('Teams Users')
             report.start_artifact_report(report_folder, 'Teams Users')
             report.add_script()
-            data_headers = ('Last Sync','Given Name','Surname','Display Name','Email','Telephone Number','Home Number','Account Enabled?','Type','User Type','Is Teams User?','Is Private Chat Enabled?', 'Secondary Email','Alt. Email')
+            data_headers = ('Last Sync','Given Name','Surname','Display Name','Account Enabled?','Is Teams User?','Is Private Chat Enabled?')
             data_list=[]
             for row in all_rows:
-                data_list.append((row[0], row[1], row[2], row[3], row[4], row[7], row[8], row[9], row[10], row[11], row[12], row[13], row[5], row[6]))
+                data_list.append((row[0], row[1], row[2], row[3], row[9], row[12], row[13]))
             report.write_artifact_data_table(data_headers, data_list, file_found, html_escape=False)
             report.end_artifact_report()
             
